@@ -5,35 +5,47 @@ function! s:Scratchpad()
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
-	let current_buffer = bufnr( "%" )
+	" Lookup the scratchpad command, either from here or a parent.
+	if exists("b:scratchpad_parent")
+		let l:scratchpad_command = getbufvar( b:scratchpad_parent, 'scratchpad_command' )
+	elseif exists("b:scratchpad_command")
+		let l:scratchpad_command = b:scratchpad_command
+	endif
 
-	" Check - is this a scratch already?
-	if exists("b:scratchpad_for")
-		"echom "I am a Scratchpad for " b:scratchpad_for
-	else
+	if ! exists("b:scratchpad_parent")
+
 		" Find or create a scratchpad.
-		let bufname = bufname( "%" ) . " - Scratch"
+		let bufname = bufname( "%" ) . " [Scratch]"
 		let scratch_buffer = bufnr( bufname )
 
 		if scratch_buffer == -1
+			" It doesn't already exist. Create it.
 			let scratch_buffer = bufnr( bufname, 1 )
+			let parent_buffer = bufnr( "%" )
 
 			silent execute "sbuffer" scratch_buffer
 
-			" Set default options.
-			setlocal nonumber
-			setlocal noswapfile
-			setlocal buftype=nofile
-			setlocal bufhidden=wipe
+			" We've created a new buffer, so set some defaults.
+			call setbufvar( scratch_buffer, "&number", 0 )
+			call setbufvar( scratch_buffer, "&swapfile", 0 )
+			call setbufvar( scratch_buffer, "&buftype", "nofile" )
+			call setbufvar( scratch_buffer, "&bufhidden", "wipe" )
+			call setbufvar( scratch_buffer, "scratchpad_parent", parent_buffer )
 
-			let b:scratchpad_for = current_buffer
-
+			" Close-the-window map.
 			nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
 			let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
-			silent call append(0, "# Use " . leader . "p to close this buffer!")
+			silent call append(0, "# Use " . leader . "p to close this buffer.")
 		else
 			silent execute "sbuffer" scratch_buffer
 		endif
+	endif
+
+	" Make the actual call.
+	if exists("l:scratchpad_command")
+		execute l:scratchpad_command
+	else
+		silent call append(line("$"), "Set up a scratchpad command!")
 	endif
 
 	let &switchbuf = switchbuf_before
