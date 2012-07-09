@@ -1,7 +1,7 @@
 nnoremap <silent> <LocalLeader>r :call <SID>Scratchpad()<CR>
 nnoremap <silent> <LocalLeader>s :source %<CR>
 
-function! s:Scratchpad()
+function! s:Scratchpad() " {
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
@@ -49,4 +49,6 @@ function! s:Scratchpad()
 	endif
 
 	let &switchbuf = switchbuf_before
-endfunction
+endfunction " }
+
+" vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
