@@ -11,9 +11,12 @@ function! s:Scratchpad() " {
 	if exists("b:scratchpad_parent")
 		let l:scratchpad_command = getbufvar( b:scratchpad_parent, 'scratchpad_command' )
 		let l:parent_buffer = b:scratchpad_parent
-	elseif exists("b:scratchpad_command")
-		let l:scratchpad_command = b:scratchpad_command
+	else
 		let l:parent_buffer = bufnr( "%" )
+
+		if exists("b:scratchpad_command")
+			let l:scratchpad_command = b:scratchpad_command
+		endif
 	endif
 
 	" Create a new scratchpad, if necessary.
@@ -49,10 +52,10 @@ function! s:Scratchpad() " {
 
 	" Replace the scratchpad contents.
 	execute ":%d _"
-	call append(line('.'), l:parent_contents)
 
 	" Make the actual call.
 	if exists("l:scratchpad_command")
+		call append(line('.'), l:parent_contents)
 		silent execute ":%!" . l:scratchpad_command
 	else
 		silent call append(line("$"), "See :help scratchpad.txt for setup advice.")
