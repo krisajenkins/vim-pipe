@@ -5,7 +5,17 @@ License: Same terms as Vim itself (see |license|)
 
 INTRODUCTION                                    *vim-pipe*
 
-vim-pipe sets up a REPL.
+vim-pipe sends the current buffer to a shell command, and instantly displays
+the output.
+
+EXAMPLE                                         *vim-pipe-example*
+
+Something like this in your .vimrc file:
+
+    autocmd FileType sql :let b:vimpipe_command="psql mydb"
+
+...would speed up SQL query development, by letting you quickly edit & execute
+a query.
 
 CONFIGURATION                                   *vim-pipe-configuration*
 
@@ -19,6 +29,12 @@ b:vimpipe_command       Set this to a shell command that will take the
 
 b:vimpipe_filetype      The filetype of the output buffer. Useful for
                         syntax highlighting, autocommands, etc.
+
+COMMANDS                                        *vim-pipe-commands*
+
+<leader>r               Send the contents of the current buffer to the
+                        |vim-pipe-b:pipe_command|and display the results.
+                        The buffer does not need to be saved first.
 
 ABOUT                                           *vim-pipe-about*
 
