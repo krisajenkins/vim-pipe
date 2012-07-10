@@ -1,16 +1,27 @@
-What is this?
+Overview
 ----
 
-It's a pseudo-REPL for things that don't have a REPL. If your file gets piped to
-an external command, this plugin can speed up your development hugely.
+Do you do this?
 
-For example, if your SQL files all get evaluated by Postgres, add this line to
-your vimrc:
+	# Edit the file.
+	# Save the file.
+	# Switch to a different terminal window.
+	# Run something that uses the file.
+	# Switch back.
+	# Repeat, repeat, repeat...
 
-	autocmd FileType sql :let b:scratchpad_command="psql <dbname>"
+This plugin will save you time.
 
-...then whenever you're editing an SQL file type `<Leader>r` to evaluate it and
-see immediate results in a temporary window.
+Detail
+----
+
+You associate a shell command with your file, something that will run against
+the file's contents. If you're editing an SQL query, that command might be
+`psql mydatabase`, for example.
+
+Having done that, `<Leader>r` will run the current buffer against that
+command and show you the results. You no longer need to
+save-switch-execute-switch, which makes life faster and easier.
 
 Installation
 ----
@@ -19,13 +30,13 @@ Installation
 * Clone this project into `~/.vim/bundle/`.
 * Add this to your .vimrc file:
 
-	    " You may already have these settings. Add them if not:
-	    syntax on
-	    filetype plugin
-
-		" Add lines like this to your .vimrc file.
-		autocmd FileType sql :let b:scratchpad_command="psql <dbname>"
-		autocmd FileType sh  :let b:scratchpad_command="bash"
+	" You may already have these settings. Add them if not:
+	syntax on
+	filetype plugin
+	
+	" Set the b:scratchpad_command variable for your buffer. The easiest way is to add an autocommand based on FileType.
+	autocmd FileType sql			:let b:scratchpad_command="psql mydatabase"
+	autocmd FileType sh				:let b:scratchpad_command="bash"
 
 Help
 ---
