@@ -1,54 +1,61 @@
 nnoremap <silent> <LocalLeader>r :call <SID>Scratchpad()<CR>
-nnoremap <silent> <LocalLeader>s :source %<CR>
+nnoremap <LocalLeader>s :source %<CR>
 
 function! s:Scratchpad() " {
+	" Save local settings.
+	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
 	" Lookup the scratchpad command, either from here or a parent.
 	if exists("b:scratchpad_parent")
 		let l:scratchpad_command = getbufvar( b:scratchpad_parent, 'scratchpad_command' )
+		let l:parent_buffer = b:scratchpad_parent
 	elseif exists("b:scratchpad_command")
 		let l:scratchpad_command = b:scratchpad_command
+		let l:parent_buffer = bufnr( "%" )
 	endif
 
+	" Create a new scratchpad, if necessary.
 	if ! exists("b:scratchpad_parent")
-
-		" Find or create a scratchpad.
 		let bufname = bufname( "%" ) . " [Scratchpad]"
-		let scratchpad_buffer = bufnr( bufname )
+		let scratchpad_buffer = bufnr( bufname, 1 )
 
-		if scratchpad_buffer == -1
-			" It doesn't already exist. Create it.
-			let scratchpad_buffer = bufnr( bufname, 1 )
-			let parent_buffer = bufnr( "%" )
+		" Split & open.
+		silent execute "sbuffer" scratchpad_buffer
 
-			silent execute "sbuffer" scratchpad_buffer
+		" Set some defaults.
+		call setbufvar( scratchpad_buffer, "&number", 0 )
+		call setbufvar( scratchpad_buffer, "&swapfile", 0 )
+		call setbufvar( scratchpad_buffer, "&buftype", "nofile" )
+		call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
+		call setbufvar( scratchpad_buffer, "scratchpad_parent", l:parent_buffer )
 
-			" We've created a new buffer, so set some defaults.
-			call setbufvar( scratchpad_buffer, "&number", 0 )
-			call setbufvar( scratchpad_buffer, "&swapfile", 0 )
-			call setbufvar( scratchpad_buffer, "&buftype", "nofile" )
-			call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
-			call setbufvar( scratchpad_buffer, "scratchpad_parent", parent_buffer )
-
-			" Close-the-window map.
-			nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
-			let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
-			silent call append(0, "# Use " . leader . "p to close this buffer.")
-		else
-			silent execute "sbuffer" scratchpad_buffer
-		endif
+		" Close-the-window mapping.
+		nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
 	endif
+
+	" Grab the contents of the parent buffer.
+	let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
+
+	" Replace the scratchpad contents.
+	execute ":%d _"
+	call append(line('.'), l:parent_contents)
 
 	" Make the actual call.
 	if exists("l:scratchpad_command")
-		execute l:scratchpad_command
+		silent execute ":%!" . l:scratchpad_command
 	else
-		silent call append(line("$"), "Set up a scratchpad command using :let b:scratchpad_command='...'.")
+		silent call append(line("$"), "See :help scratchpad.txt for setup advice.")
 	endif
 
+	" Add a tip.
+	let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
+	silent call append(0, ["# Use " . leader . "p to close this buffer.", ""])
+
+	" Restore local settings.
 	let &switchbuf = switchbuf_before
+	let @@ = saved_unnamed_register
 endfunction " }
 
 " vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
