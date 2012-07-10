@@ -33,6 +33,8 @@ function! s:Scratchpad() " {
 			call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
 			call setbufvar( scratchpad_buffer, "scratchpad_parent", l:parent_buffer )
 
+			call setbufvar( scratchpad_buffer, "&filetype", getbufvar( l:parent_buffer, 'scratchpad_filetype' ) )
+
 			" Close-the-window mapping.
 			nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
 		else

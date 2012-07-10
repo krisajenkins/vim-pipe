@@ -10,9 +10,15 @@ Scratchpad sets up a REPL.
 CONFIGURATION                                   *scratchpad-configuration*
 
                                                 *scratchpad-b:scratchpad_command*
+
 b:scratchpad_command    Set this to a shell command that will take the
 			            contents of your buffer on STDIN, and return the
                         result on STDOUT.
+
+                                                *scratchpad-b:scratchpad_filetype*
+
+b:scratchpad_filetype   The filetype of the scratchpad buffer. Useful for
+                        syntax highlighting, and subsequent autocommands.
 
 ABOUT                                           *scratchpad-about*
 
