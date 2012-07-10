@@ -28,12 +28,12 @@ function! s:Scratchpad() " {
 			silent execute "sbuffer" scratchpad_buffer
 
 			" Set some defaults.
-			call setbufvar( scratchpad_buffer, "&swapfile", 0 )
-			call setbufvar( scratchpad_buffer, "&buftype", "nofile" )
-			call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
-			call setbufvar( scratchpad_buffer, "scratchpad_parent", l:parent_buffer )
+			call setbufvar(scratchpad_buffer, "&swapfile", 0)
+			call setbufvar(scratchpad_buffer, "&buftype", "nofile")
+			call setbufvar(scratchpad_buffer, "&bufhidden", "wipe")
+			call setbufvar(scratchpad_buffer, "scratchpad_parent", l:parent_buffer)
 
-			call setbufvar( scratchpad_buffer, "&filetype", getbufvar( l:parent_buffer, 'scratchpad_filetype' ) )
+			call setbufvar(scratchpad_buffer, "&filetype", getbufvar(l:parent_buffer, 'scratchpad_filetype'))
 
 			" Close-the-window mapping.
 			nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
