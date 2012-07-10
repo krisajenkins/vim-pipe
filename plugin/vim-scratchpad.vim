@@ -19,20 +19,28 @@ function! s:Scratchpad() " {
 	" Create a new scratchpad, if necessary.
 	if ! exists("b:scratchpad_parent")
 		let bufname = bufname( "%" ) . " [Scratchpad]"
-		let scratchpad_buffer = bufnr( bufname, 1 )
+		let scratchpad_buffer = bufnr( bufname )
 
-		" Split & open.
-		silent execute "sbuffer" scratchpad_buffer
+		if scratchpad_buffer == -1
+			let scratchpad_buffer = bufnr( bufname, 1 )
 
-		" Set some defaults.
-		call setbufvar( scratchpad_buffer, "&number", 0 )
-		call setbufvar( scratchpad_buffer, "&swapfile", 0 )
-		call setbufvar( scratchpad_buffer, "&buftype", "nofile" )
-		call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
-		call setbufvar( scratchpad_buffer, "scratchpad_parent", l:parent_buffer )
+			" Split & open.
+			silent execute "sbuffer" scratchpad_buffer
 
-		" Close-the-window mapping.
-		nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
+			" Set some defaults.
+			call setbufvar( scratchpad_buffer, "&number", 0 )
+			call setbufvar( scratchpad_buffer, "&swapfile", 0 )
+			call setbufvar( scratchpad_buffer, "&buftype", "nofile" )
+			call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
+			call setbufvar( scratchpad_buffer, "scratchpad_parent", l:parent_buffer )
+
+			" Close-the-window mapping.
+			nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
+		else
+			silent execute "sbuffer" scratchpad_buffer
+		endif
+
+		let l:should_switchback = 1
 	endif
 
 	" Grab the contents of the parent buffer.
@@ -52,6 +60,11 @@ function! s:Scratchpad() " {
 	" Add a tip.
 	let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
 	silent call append(0, ["# Use " . leader . "p to close this buffer.", ""])
+
+	" Go back to the last window.
+	if exists("l:should_switchback")
+		execute "normal! \<C-W>\<C-P>"
+	endif
 
 	" Restore local settings.
 	let &switchbuf = switchbuf_before
