@@ -28,7 +28,6 @@ function! s:Scratchpad() " {
 			silent execute "sbuffer" scratchpad_buffer
 
 			" Set some defaults.
-			call setbufvar( scratchpad_buffer, "&number", 0 )
 			call setbufvar( scratchpad_buffer, "&swapfile", 0 )
 			call setbufvar( scratchpad_buffer, "&buftype", "nofile" )
 			call setbufvar( scratchpad_buffer, "&bufhidden", "wipe" )
