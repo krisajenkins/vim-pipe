@@ -1,5 +1,4 @@
 nnoremap <silent> <LocalLeader>r :call <SID>Scratchpad()<CR>
-nnoremap <LocalLeader>s :source %<CR>
 
 function! s:Scratchpad() " {
 	" Save local settings.
