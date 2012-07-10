@@ -1,0 +1,29 @@
+*vim-pipe.txt*    For Vim version 7.3
+
+Author:  Kris Jenkins <http://www.jenkster.com/>
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                    *vim-pipe*
+
+vim-pipe sets up a REPL.
+
+CONFIGURATION                                   *vim-pipe-configuration*
+
+                                                *vim-pipe-b:vimpipe_command*
+
+b:vimpipe_command       Set this to a shell command that will take the
+			            contents of your buffer on STDIN, and return the
+                        result on STDOUT.
+
+                                                *vim-pipe-b:vimpipe_filetype*
+
+b:vimpipe_filetype      The filetype of the output buffer. Useful for
+                        syntax highlighting, autocommands, etc.
+
+ABOUT                                           *vim-pipe-about*
+
+Grab the latest version or report a bug on GitHub:
+
+http://github.com/krisajenkins/vim-pipe
+
+ vim:tw=78:et:ft=help:norl:

@@ -1,4 +1,4 @@
-# Scratchpad
+# Vim Pipe
 
 ## Overview
 
@@ -37,12 +37,20 @@ save-switch-execute-switch, which makes life faster and easier.
 syntax on
 filetype plugin
 
-" Set the b:scratchpad_command variable for your buffer.
+" Set the b:vimpipe_command variable for your buffer.
 " The easiest way is to add an autocommand based on FileType.
-autocmd FileType sql			:let b:scratchpad_command="psql <dbname>"
-autocmd FileType markdown		:let b:scratchpad_command="multimarkdown"
+autocmd FileType sql			:let b:vimpipe_command="psql <dbname>"
+autocmd FileType markdown		:let b:vimpipe_command="multimarkdown"
 ```
 
 ## Help
 
-See :help scratchpad.txt for more.
+See :help vim-pipe for more.
+
+## Credits
+
+Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learn_vimscript], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
+
+
+[learn_vimscript]: http://learnvimscriptthehardway.stevelosh.com/
+[vimclojure]: https://github.com/kotarak/vimclojure
