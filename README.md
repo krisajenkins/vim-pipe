@@ -56,12 +56,14 @@ which makes life faster and easier.
 * Add this to your `.vimrc` file:
 
 ```vimscript
-" You may already have these settings. Add them if not:
-syntax on
+" You may already have this setting. Add it if not:
 filetype plugin
+```
 
-" Set the b:vimpipe_command variable for your buffer.
-" The easiest way is to add an autocommand based on FileType.
+* Set a `b:vimpipe_command` variable for your buffer. The easiest way is to add
+an autocommand based on FileType. For example, in your `.vimrc` file:
+
+```vimscript
 autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
 autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
 ```
