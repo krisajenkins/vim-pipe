@@ -73,6 +73,18 @@ to that command, and show the output in a new scratch buffer.
 
 See :help vim-pipe for more.
 
+## Tips
+
+### Oracle
+
+If you have an OPS$ login, it's as simple as:
+`autocmd FileType sql :let b:vimpipe_command="sqlplus /"`
+
+### HTML
+
+This is only text-based, obviously, but can still speed up initial development.
+`autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"`
+
 ## Credits
 
 Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learn_vimscript], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
