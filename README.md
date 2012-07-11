@@ -34,7 +34,7 @@ This plugin lets you do this instead:
 +-------------------+
 ```
 
-Which saves tonnes of time.
+Which saves tonnes of time. It's even faster than using screen or tmux.
 
 It's useful for developing SQL queries, fast HTML previews, markdown-checking,
 and anything that needs to pass through a shell command while you develop.
@@ -51,7 +51,7 @@ which makes life faster and easier.
 
 ## Installation
 
-* Install Pathogen.
+* Install [Pathogen][pathogen].
 * Clone this project into `~/.vim/bundle/`.
 * Add this to your `.vimrc` file:
 
@@ -105,8 +105,9 @@ autocmd FileType mkd :let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
 
 ## Credits
 
-Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][1], and Meikel Brandmeye of [vimclojure][2] for the inspiration.
+Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learnvim], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
 
 
-[1]: http://learnvimscriptthehardway.stevelosh.com/
-[2]: https://github.com/kotarak/vimclojure
+[pathogen]: https://github.com/tpope/vim-pathogen/
+[learnvim]: http://learnvimscriptthehardway.stevelosh.com/
+[vimclojure]: https://github.com/kotarak/vimclojure
