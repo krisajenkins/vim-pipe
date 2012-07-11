@@ -51,7 +51,7 @@ which makes life faster and easier.
 
 ## Installation
 
-* Install [Pathogen][pathogen].
+* Install [Pathogen][pathogen]. (You're already using Pathogen, right?)
 * Clone this project into `~/.vim/bundle/`.
 * Add this to your `.vimrc` file:
 
