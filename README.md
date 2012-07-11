@@ -42,7 +42,7 @@ and anything that needs to pass through a shell command while you develop.
 ## Detail
 
 You associate a shell command with your file, something that will take your
-buffer on STDIN and show the result on STDOUT For example, if you're editing an
+buffer on STDIN and show the result on STDOUT. For example, if you're editing an
 SQL query, that command might be `psql mydatabase`.
 
 Having done that, `<Leader>r` will run the current buffer against that command
