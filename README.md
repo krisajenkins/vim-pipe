@@ -17,7 +17,7 @@ Do you do this?
 |                   |                |                   |
 +-------------------+                +-------------------+
           |                                    |
-         :w------------> alt-tab ---------> invoke
+         :w -----------> alt-tab ---------> invoke
 ```
 
 This plugin lets you do this instead:
