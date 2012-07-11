@@ -41,13 +41,13 @@ and anything that needs to pass through a shell command while you develop.
 
 ## Detail
 
-You associate a shell command with your file, something that will run against
-the file's contents. If you're editing an SQL query, that command might be
-`psql mydatabase`, for example.
+You associate a shell command with your file, something that will take your
+buffer on STDIN and show the result on STDOUT For example, if you're editing an
+SQL query, that command might be `psql mydatabase`.
 
-Having done that, `<Leader>r` will run the current buffer against that
-command and show you the results. You no longer need to
-save-switch-execute-switch, which makes life faster and easier.
+Having done that, `<Leader>r` will run the current buffer against that command
+and show you the results. You no longer need to save-switch-execute-switch,
+which makes life faster and easier.
 
 ## Installation
 
@@ -91,8 +91,8 @@ autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"
 
 ## Credits
 
-Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learn_vimscript], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
+Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][1], and Meikel Brandmeye of [vimclojure][2] for the inspiration.
 
 
-[learn_vimscript]: http://learnvimscriptthehardway.stevelosh.com/
-[vimclojure]: https://github.com/kotarak/vimclojure
+[1]: http://learnvimscriptthehardway.stevelosh.com/
+[2]: https://github.com/kotarak/vimclojure
