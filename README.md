@@ -4,17 +4,40 @@
 
 Do you do this?
 
-1. Edit the file.
-1. Save the file.
-1. Switch to a different terminal window.
-1. Run something that uses the file.
-1. Switch back.
-1. Repeat, repeat, repeat...
+```
+        hack <---------- alt-tab <---------- react
+          |                                    |
++-------------------+                +-------------------+
+| code code         |                | result result     |
+| code              |                | result            |
+|                   |                |                   |
+|                   |                |                   |
+|                   |                |                   |
+|                   |                |                   |
+|                   |                |                   |
++-------------------+                +-------------------+
+          |                                    |
+         :w------------> alt-tab ---------> invoke
+```
 
-_This plugin will save you time._
+This plugin lets you do this instead:
 
-It's useful for developing SQL queries, markdown-checking, and anything that
-needs to pass through a shell command while you develop.
+```
++-------------------+
+| code code         |
+| code              |-----\
+|                   |     |
+|-------------------| <Leader>r
+| result result     |     |
+| result            |<----/
+|                   |
++-------------------+
+```
+
+Which saves tonnes of time.
+
+It's useful for developing SQL queries, fast HTML previews, markdown-checking,
+and anything that needs to pass through a shell command while you develop.
 
 ## Detail
 
@@ -39,9 +62,12 @@ filetype plugin
 
 " Set the b:vimpipe_command variable for your buffer.
 " The easiest way is to add an autocommand based on FileType.
-autocmd FileType sql			:let b:vimpipe_command="psql <dbname>"
-autocmd FileType markdown		:let b:vimpipe_command="multimarkdown"
+autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
+autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
 ```
+
+Then, when you're editing the file, `<Leader>r` will send the buffer's content
+to that command, and show the output in a new scratch buffer.
 
 ## Help
 
