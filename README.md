@@ -89,6 +89,20 @@ This is only text-based, obviously, but can still speed up initial development.
 autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"
 ```
 
+### Markdown
+
+Fast-preview the HTML:
+
+```
+autocmd FileType mkd :let b:vimpipe_command="multimarkdown"
+```
+
+Or combine wth the HTML tip to preview the rendered result:
+
+```
+autocmd FileType mkd :let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
+```
+
 ## Credits
 
 Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][1], and Meikel Brandmeye of [vimclojure][2] for the inspiration.
