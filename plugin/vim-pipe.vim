@@ -26,6 +26,9 @@ function! s:VimPipe() " {
 		if vimpipe_buffer == -1
 			let vimpipe_buffer = bufnr( bufname, 1 )
 
+			" Close-the-window mapping.
+			execute "nnoremap \<buffer> \<silent> \<LocalLeader>p :bw " . vimpipe_buffer . "\<CR>"
+
 			" Split & open.
 			silent execute "sbuffer" vimpipe_buffer
 

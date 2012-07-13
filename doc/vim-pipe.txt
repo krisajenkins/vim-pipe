@@ -32,9 +32,11 @@ b:vimpipe_filetype      The filetype of the output buffer. Useful for
 
 COMMANDS                                        *vim-pipe-commands*
 
-<leader>r               Send the contents of the current buffer to the
-                        |vim-pipe-b:pipe_command|and display the results.
+<LocalLeader>r          Send the contents of the current buffer to the
+                       |vim-pipe-b:pipe_command|and display the results.
                         The buffer does not need to be saved first.
+
+<LocalLeader>p          Close the result buffer.
 
 ABOUT                                           *vim-pipe-about*
 

@@ -25,11 +25,11 @@ This plugin lets you do this instead:
 ```
 +-------------------+
 | code code         |
-| code              |-----\
-|                   |     |
-|-------------------| <Leader>r
-| result result     |     |
-| result            |<----/
+| code              |---------\
+|                   |         |
+|-------------------|   <LocalLeader>r
+| result result     |         |
+| result            |<--------/
 |                   |
 +-------------------+
 ```
@@ -45,9 +45,9 @@ You associate a shell command with your file, something that will take your
 buffer on STDIN and show the result on STDOUT. For example, if you're editing an
 SQL query, that command might be `psql mydatabase`.
 
-Having done that, `<Leader>r` will run the current buffer against that command
-and show you the results. You no longer need to save-switch-execute-switch,
-which makes life faster and easier.
+Having done that, `<LocalLeader>r` will run the current buffer against that
+command and show you the results. You no longer need to
+save-switch-execute-switch, which makes life faster and easier.
 
 ## Installation
 
@@ -68,8 +68,8 @@ autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
 autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
 ```
 
-Then, when you're editing the file, `<Leader>r` will send the buffer's content
-to that command, and show the output in a new scratch buffer.
+Then, when you're editing the file, `<LocalLeader>r` will send the buffer's
+content to that command, and show the output in a new scratch buffer.
 
 ## Help
 
