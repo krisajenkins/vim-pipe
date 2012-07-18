@@ -53,17 +53,10 @@ save-switch-execute-switch, which makes life faster and easier.
 
 * Install [Pathogen][pathogen]. (You're already using Pathogen, right?)
 * Clone this project into `~/.vim/bundle/`.
-* Add this to your `.vimrc` file:
-
-```vimscript
-" You may already have this setting. Add it if not:
-filetype plugin
-```
-
 * Set a `b:vimpipe_command` variable for your buffer. The easiest way is to add
 an autocommand based on FileType. For example, in your `.vimrc` file:
 
-```vimscript
+```vim
 autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
 autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
 ```
@@ -73,21 +66,21 @@ content to that command, and show the output in a new scratch buffer.
 
 ## Help
 
-See :help vim-pipe for more.
+See `:help vim-pipe` for more.
 
 ## Tips
 
 ### Oracle
 
 If you have an OPS$ login, it's as simple as:
-```
+```vim
 autocmd FileType sql :let b:vimpipe_command="sqlplus /"
 ```
 
 ### HTML
 
 This is only text-based, obviously, but can still speed up initial development.
-```
+```vim
 autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"
 ```
 
@@ -95,13 +88,13 @@ autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"
 
 Fast-preview the HTML:
 
-```
+```vim
 autocmd FileType mkd :let b:vimpipe_command="multimarkdown"
 ```
 
 Or combine wth the HTML tip to preview the rendered result:
 
-```
+```vim
 autocmd FileType mkd :let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
 ```
 
