@@ -61,10 +61,13 @@ autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
 autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
 ```
 
-Then, when you're editing the file, `<LocalLeader>r` will send the buffer's
-content to that command, and show the output in a new scratch buffer.
+See below for various examples.
 
 ## Usage & Tips
+
+Once `b:vimpipe_command` is configured, type `<LocalLeader>r` to get the list
+results.  There's no need to save the file first. It works on the current
+buffer, not the contents on disk.
 
 ### PostgreSQL
 ```vim
