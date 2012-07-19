@@ -90,6 +90,7 @@ Fast-preview the HTML:
 
 ```vim
 autocmd FileType mkd :let b:vimpipe_command="multimarkdown"
+autocmd FileType mkd :let b:vimpipe_filetype="html"
 ```
 
 Or combine wth the HTML tip to preview the rendered result:
