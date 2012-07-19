@@ -74,7 +74,7 @@ buffer, not the contents on disk.
 autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
 ```
 
-See also [vim-postgresql-syntax].
+See also [vim-postgresql-syntax][vim-postgresql-syntax].
 
 ### Oracle
 
