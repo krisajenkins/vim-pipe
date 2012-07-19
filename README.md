@@ -64,11 +64,14 @@ autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
 Then, when you're editing the file, `<LocalLeader>r` will send the buffer's
 content to that command, and show the output in a new scratch buffer.
 
-## Help
+## Usage & Tips
 
-See `:help vim-pipe` for more.
+### PostgreSQL
+```vim
+autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
+```
 
-## Tips
+See also [vim-postgresql-syntax].
 
 ### Oracle
 
@@ -118,6 +121,10 @@ db.book.find( null, {author: 1, title: 1 });
 db.runCommand( {dbStats: 1} );
 ```
 
+## Help
+
+See `:help vim-pipe` for more.
+
 ## Credits
 
 Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learnvim], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
@@ -126,3 +133,4 @@ Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the 
 [pathogen]: https://github.com/tpope/vim-pathogen/
 [learnvim]: http://learnvimscriptthehardway.stevelosh.com/
 [vimclojure]: https://github.com/kotarak/vimclojure
+[vim-postgresql-syntax]: https://github.com/krisajenkins/vim-postgresql-syntax
