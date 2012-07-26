@@ -49,11 +49,14 @@ function! s:VimPipe() " {
 		let l:should_switchback = 1
 	endif
 
+	" Replace the output buffer's contents.
+	execute ":1d _"
+	silent call append(0, ["# Running... "])
+	redraw
+	execute ":%d _"
+
 	" Grab the contents of the parent buffer.
 	let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
-
-	" Replace the output buffer's contents.
-	execute ":%d _"
 
 	" Make the actual call.
 	if exists("l:vimpipe_command")
