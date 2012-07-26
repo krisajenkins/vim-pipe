@@ -55,26 +55,26 @@ function! s:VimPipe() " {
 	" Lookup the vimpipe command, either from here or a parent.
 	if exists("b:vimpipe_command")
 		let l:vimpipe_command = b:vimpipe_command
-	elseif exists("b:vimpipe_parent")
+	else
 		let l:vimpipe_command = getbufvar( b:vimpipe_parent, 'vimpipe_command' )
 	endif
 
 	" Call the pipe command, or give a hint about setting it up.
-	if exists("l:vimpipe_command")
+	if empty(l:vimpipe_command)
+		silent call append(0, ["", "# See :help vim-pipe for setup advice."])
+	else
 		let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
 		call append(line('.'), l:parent_contents)
 
 		let l:start = reltime()
 		silent execute ":%!" . l:vimpipe_command
 		let l:duration = reltimestr(reltime(start))
-		silent call append(0, ["# Pipe command took:" . duration . "s"])
-	else
-		silent call append(line("$"), "See :help vim-pipe for setup advice.")
+		silent call append(0, ["# Pipe command took:" . duration . "s", ""])
 	endif
 
 	" Add the how-to-close shortcut.
 	let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
-	silent call append(1, ["# Use " . leader . "p to close this buffer.", ""])
+	silent call append(0, "# Use " . leader . "p to close this buffer.")
 
 	" Go back to the last window.
 	if exists("l:parent_was_active")
