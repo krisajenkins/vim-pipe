@@ -6,16 +6,11 @@ function! s:VimPipe() " {
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
-	" Lookup the vimpipe command, either from here or a parent.
+	" Lookup the parent buffer.
 	if exists("b:vimpipe_parent")
-		let l:vimpipe_command = getbufvar( b:vimpipe_parent, 'vimpipe_command' )
 		let l:parent_buffer = b:vimpipe_parent
 	else
 		let l:parent_buffer = bufnr( "%" )
-
-		if exists("b:vimpipe_command")
-			let l:vimpipe_command = b:vimpipe_command
-		endif
 	endif
 
 	" Create a new output buffer, if necessary.
@@ -30,7 +25,7 @@ function! s:VimPipe() " {
 			execute "nnoremap \<buffer> \<silent> \<LocalLeader>p :bw " . vimpipe_buffer . "\<CR>"
 
 			" Split & open.
-			silent execute "sbuffer" vimpipe_buffer
+			silent execute "sbuffer " . vimpipe_buffer
 
 			" Set some defaults.
 			call setbufvar(vimpipe_buffer, "&swapfile", 0)
@@ -46,32 +41,39 @@ function! s:VimPipe() " {
 			silent execute "sbuffer" vimpipe_buffer
 		endif
 
-		let l:should_switchback = 1
+		let l:parent_was_active = 1
 	endif
 
-	" Replace the output buffer's contents.
+	" Display a "Running" message.
 	execute ":1d _"
 	silent call append(0, ["# Running... "])
 	redraw
+
+	" Clear the buffer.
 	execute ":%d _"
 
-	" Grab the contents of the parent buffer.
-	let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
+	" Lookup the vimpipe command, either from here or a parent.
+	if exists("b:vimpipe_command")
+		let l:vimpipe_command = b:vimpipe_command
+	elseif exists("b:vimpipe_parent")
+		let l:vimpipe_command = getbufvar( b:vimpipe_parent, 'vimpipe_command' )
+	endif
 
-	" Make the actual call.
+	" Call the pipe command, or give a hint about setting it up.
 	if exists("l:vimpipe_command")
+		let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
 		call append(line('.'), l:parent_contents)
 		silent execute ":%!" . l:vimpipe_command
 	else
 		silent call append(line("$"), "See :help vim-pipe for setup advice.")
 	endif
 
-	" Add a tip.
+	" Add the how-to-close shortcut.
 	let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
-	silent call append(0, ["# Use " . leader . "p to close this buffer.", ""])
+	silent call append(1, ["# Use " . leader . "p to close this buffer.", ""])
 
 	" Go back to the last window.
-	if exists("l:should_switchback")
+	if exists("l:parent_was_active")
 		execute "normal! \<C-W>\<C-P>"
 	endif
 
