@@ -1,4 +1,4 @@
-*vim-pipe.txt*    For Vim version 7.3
+*vim-pipe.txt*    Pass the current buffer through a shell command, see the results.
 
 Author:  Kris Jenkins <http://www.jenkster.com/>
 License: Same terms as Vim itself (see |license|)
