@@ -63,7 +63,11 @@ function! s:VimPipe() " {
 	if exists("l:vimpipe_command")
 		let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
 		call append(line('.'), l:parent_contents)
+
+		let l:start = reltime()
 		silent execute ":%!" . l:vimpipe_command
+		let l:duration = reltimestr(reltime(start))
+		silent call append(0, ["# Pipe command took:" . duration . "s"])
 	else
 		silent call append(line("$"), "See :help vim-pipe for setup advice.")
 	endif
