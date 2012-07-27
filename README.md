@@ -80,7 +80,7 @@ See also [vim-postgresql-syntax][vim-postgresql-syntax].
 
 If you have an OPS$ login, it's as simple as:
 ```vim
-autocmd FileType sql :let b:vimpipe_command="sqlplus /"
+autocmd FileType sql :let b:vimpipe_command="sqlplus -s /"
 ```
 
 ### HTML
