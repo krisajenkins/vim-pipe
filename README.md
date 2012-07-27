@@ -110,10 +110,10 @@ autocmd FileType mkd :let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
 Is there an official FileType for MongoDB query files? Let's say it's `mongoql`, for all files `*.mql`:
 
 ```vim
-	autocmd BufNewFile,BufReadPost *.mql setlocal filetype=mongoql
+autocmd BufNewFile,BufReadPost *.mql setlocal filetype=mongoql
 
-	autocmd FileType mongoql :let b:vimpipe_command="mongo"
-	autocmd FileType mongoql :let b:vimpipe_filetype="json"
+autocmd FileType mongoql :let b:vimpipe_command="mongo"
+autocmd FileType mongoql :let b:vimpipe_filetype="json"
 ```
 
 Then try editing a file called `somequery.mql` with something like this in:
@@ -131,7 +131,6 @@ See `:help vim-pipe` for more.
 ## Credits
 
 Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learnvim], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
-
 
 [pathogen]: https://github.com/tpope/vim-pathogen/
 [learnvim]: http://learnvimscriptthehardway.stevelosh.com/
