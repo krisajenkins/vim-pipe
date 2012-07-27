@@ -45,8 +45,8 @@ function! s:VimPipe() " {
 	endif
 
 	" Display a "Running" message.
-	execute ":1d _"
-	silent call append(0, ["# Running... "])
+	silent! execute ":1,2d _"
+	silent call append(0, ["# Running... ",""])
 	redraw
 
 	" Clear the buffer.
