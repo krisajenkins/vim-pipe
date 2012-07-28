@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Vim-pipe by krisajenkins</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Vim-pipe</h1>
+        <p class="header">Send a vim buffer through a command and instantly see the output.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/krisajenkins/vim-pipe/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/krisajenkins/vim-pipe/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/krisajenkins/vim-pipe">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/krisajenkins">krisajenkins</a></p>
+
+
+      </header>
+      <section>
+        <h1>Vim Pipe</h1>
+
+<h2>Overview</h2>
+
+<p>Do you do this?</p>
+
+<pre><code>        hack &lt;---------- alt-tab &lt;---------- react
+          |                                    |
++-------------------+                +-------------------+
+| code code         |                | result result     |
+| code              |                | result            |
+|                   |                |                   |
+|                   |                |                   |
+|                   |                |                   |
+|                   |                |                   |
+|                   |                |                   |
++-------------------+                +-------------------+
+          |                                    |
+         :w -----------&gt; alt-tab ---------&gt; invoke
+</code></pre>
+
+<p>This plugin lets you do this instead:</p>
+
+<pre><code>+-------------------+
+| code code         |
+| code              |---------\
+|                   |         |
+|-------------------|   &lt;LocalLeader&gt;r
+| result result     |         |
+| result            |&lt;--------/
+|                   |
++-------------------+
+</code></pre>
+
+<p>Which saves tonnes of time. It's even faster than using screen or tmux.</p>
+
+<p>It's useful for developing SQL queries, fast HTML previews, markdown-checking,
+and anything that needs to pass through a shell command while you develop.</p>
+
+<h2>Detail</h2>
+
+<p>You associate a shell command with your file, something that will take your
+buffer on STDIN and show the result on STDOUT. For example, if you're editing an
+SQL query, that command might be <code>psql mydatabase</code>.</p>
+
+<p>Having done that, <code>&lt;LocalLeader&gt;r</code> will run the current buffer against that
+command and show you the results. You no longer need to
+save-switch-execute-switch, which makes life faster and easier.</p>
+
+<h2>Installation</h2>
+
+<ul>
+<li>Install <a href="https://github.com/tpope/vim-pathogen/">Pathogen</a>. (You're already using Pathogen, right?)</li>
+<li>Clone this project into <code>~/.vim/bundle/</code>.</li>
+<li>Set a <code>b:vimpipe_command</code> variable for your buffer. The easiest way is to add
+an autocommand based on FileType. For example, in your <code>.vimrc</code> file:</li>
+</ul><div class="highlight"><pre>autocmd <span class="nb">FileType</span> sql       :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"psql mydatabase"</span>
+autocmd <span class="nb">FileType</span> markdown  :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"multimarkdown"</span>
+</pre></div>
+
+<p>See below for various examples.</p>
+
+<h2>Usage &amp; Tips</h2>
+
+<p>Once <code>b:vimpipe_command</code> is configured, type <code>&lt;LocalLeader&gt;r</code> to get the list
+results.  There's no need to save the file first. It works on the current
+buffer, not the contents on disk.</p>
+
+<h3>PostgreSQL</h3>
+
+<div class="highlight"><pre>autocmd <span class="nb">FileType</span> sql       :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"psql mydatabase"</span>
+</pre></div>
+
+<p>See also <a href="https://github.com/krisajenkins/vim-postgresql-syntax">vim-postgresql-syntax</a>.</p>
+
+<h3>Oracle</h3>
+
+<p>If you have an OPS$ login, it's as simple as:</p>
+
+<div class="highlight"><pre>autocmd <span class="nb">FileType</span> sql :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"sqlplus -s /"</span>
+</pre></div>
+
+<h3>HTML</h3>
+
+<p>This is only text-based, obviously, but can still speed up initial development.</p>
+
+<div class="highlight"><pre>autocmd <span class="nb">FileType</span> html :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"lynx -dump -stdin"</span>
+</pre></div>
+
+<h3>Markdown</h3>
+
+<p>Fast-preview the HTML:</p>
+
+<div class="highlight"><pre>autocmd <span class="nb">FileType</span> mkd :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"multimarkdown"</span>
+autocmd <span class="nb">FileType</span> mkd :<span class="k">let</span> <span class="k">b</span>:vimpipe_filetype<span class="p">=</span><span class="s2">"html"</span>
+</pre></div>
+
+<p>Or combine wth the HTML tip to preview the rendered result:</p>
+
+<div class="highlight"><pre>autocmd <span class="nb">FileType</span> mkd :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"multimarkdown | lynx -dump -stdin"</span>
+</pre></div>
+
+<h3>MongoDB</h3>
+
+<p>Is there an official FileType for MongoDB query files? Let's say it's <code>mongoql</code>, for all files <code>*.mql</code>:</p>
+
+<div class="highlight"><pre>autocmd <span class="nb">BufNewFile</span><span class="p">,</span><span class="nb">BufReadPost</span> *.mql <span class="k">setlocal</span> <span class="k">filetype</span><span class="p">=</span>mongoql
+
+autocmd <span class="nb">FileType</span> mongoql :<span class="k">let</span> <span class="k">b</span>:vimpipe_command<span class="p">=</span><span class="s2">"mongo"</span>
+autocmd <span class="nb">FileType</span> mongoql :<span class="k">let</span> <span class="k">b</span>:vimpipe_filetype<span class="p">=</span><span class="s2">"json"</span>
+</pre></div>
+
+<p>Then try editing a file called <code>somequery.mql</code> with something like this in:</p>
+
+<pre><code>use books;
+db.book.find( null, {author: 1, title: 1 });
+db.runCommand( {dbStats: 1} );
+</code></pre>
+
+<h2>Help</h2>
+
+<p>See <code>:help vim-pipe</code> for more.</p>
+
+<h2>Credits</h2>
+
+<p>Thanks to Steve Losh for his excellent guide to Vimscript, <a href="http://learnvimscriptthehardway.stevelosh.com/">Learn Vimscript the Hard Way</a>, and Meikel Brandmeye of <a href="https://github.com/kotarak/vimclojure">vimclojure</a> for the inspiration.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-10319773-15");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
