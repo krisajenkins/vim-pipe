@@ -1,0 +1,5 @@
+safe: true
+source: /Users/kris/Work/OpenSource/vim-pipe
+destination: /Users/kris/Work/OpenSource/vim-pipe/_site
+lsi: false
+pygments: true
