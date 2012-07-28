@@ -1,8 +1,6 @@
 # Vim Pipe
 
-## Overview
-
-Do you do this?
+## Do you do this?
 
 ```
         hack <---------- alt-tab <---------- react
