@@ -1,5 +1,7 @@
 # Vim Pipe
 
+A Productivity-Boosting Plugin for Vim
+
 ## Do you do this?
 
 ```
