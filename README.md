@@ -1,6 +1,4 @@
-# Vim Pipe
-
-A Productivity-Boosting Plugin for Vim
+# Vim Pipe - A Productivity-Boosting Plugin
 
 ## Do you do this?
 
