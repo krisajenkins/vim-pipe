@@ -64,7 +64,7 @@ function! s:VimPipe() " {
 		silent call append(0, ["", "# See :help vim-pipe for setup advice."])
 	else
 		let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
-		call append(line('.'), l:parent_contents)
+		call append(line('0'), l:parent_contents)
 
 		let l:start = reltime()
 		silent execute ":%!" . l:vimpipe_command
