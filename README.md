@@ -84,9 +84,24 @@ autocmd FileType sql :let b:vimpipe_command="sqlplus -s /"
 ### HTML
 
 This is only text-based, obviously, but can still speed up initial development.
+
 ```vim
 autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"
 ```
+
+### JavaScript
+
+JavaScript usually gets run in a browser, so a text-based output doesn't apply.
+But vim-pipe can be usefully bound to JSLint, for code-quality checking
+on-the-fly.
+
+```vim
+autocmd FileType javascript let b:vimpipe_command='jslint <(cat)'
+```
+
+Note: JSLint doesn't accept input on STDIN, so this configuration uses bash's
+virtual file support. `<(cat)` takes the STDIN and re-presents it to look like a
+regular file.
 
 ### Markdown
 
