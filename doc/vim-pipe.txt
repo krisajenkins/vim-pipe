@@ -19,7 +19,7 @@ the result on STDOUT. So anything like this:
 PostgreSQL's client works like that, so when editing a database query, you can
 add something like this in your .vimrc file:
 
-    autocmd FileType sql :let b:vimpipe_command="psql mydatabase"
+    autocmd FileType sql let b:vimpipe_command="psql mydatabase"
 
 Then edit an SQL file, and hit <LocalLeader>r to instant execute the query and
 see the results. Your development cycle is now down to 2 keystokes.

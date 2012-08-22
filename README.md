@@ -55,8 +55,8 @@ save-switch-execute-switch, which makes life faster and easier.
 an autocommand based on FileType. For example, in your `.vimrc` file:
 
 ```vim
-autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
-autocmd FileType markdown  :let b:vimpipe_command="multimarkdown"
+autocmd FileType sql      let b:vimpipe_command="psql mydatabase"
+autocmd FileType markdown let b:vimpipe_command="multimarkdown"
 ```
 
 See below for various examples.
@@ -69,7 +69,7 @@ buffer, not the contents on disk.
 
 ### PostgreSQL
 ```vim
-autocmd FileType sql       :let b:vimpipe_command="psql mydatabase"
+autocmd FileType sql let b:vimpipe_command="psql mydatabase"
 ```
 
 See also [vim-postgresql-syntax][vim-postgresql-syntax].
@@ -78,7 +78,7 @@ See also [vim-postgresql-syntax][vim-postgresql-syntax].
 
 If you have an OPS$ login, it's as simple as:
 ```vim
-autocmd FileType sql :let b:vimpipe_command="sqlplus -s /"
+autocmd FileType sql let b:vimpipe_command="sqlplus -s /"
 ```
 
 ### HTML
@@ -86,7 +86,7 @@ autocmd FileType sql :let b:vimpipe_command="sqlplus -s /"
 This is only text-based, obviously, but can still speed up initial development.
 
 ```vim
-autocmd FileType html :let b:vimpipe_command="lynx -dump -stdin"
+autocmd FileType html let b:vimpipe_command="lynx -dump -stdin"
 ```
 
 ### JavaScript
@@ -108,14 +108,14 @@ regular file.
 Fast-preview the HTML:
 
 ```vim
-autocmd FileType mkd :let b:vimpipe_command="multimarkdown"
-autocmd FileType mkd :let b:vimpipe_filetype="html"
+autocmd FileType mkd let b:vimpipe_command="multimarkdown"
+autocmd FileType mkd let b:vimpipe_filetype="html"
 ```
 
 Or combine wth the HTML tip to preview the rendered result:
 
 ```vim
-autocmd FileType mkd :let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
+autocmd FileType mkd let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
 ```
 
 ### MongoDB
@@ -125,8 +125,8 @@ Is there an official FileType for MongoDB query files? Let's say it's `mongoql`,
 ```vim
 autocmd BufNewFile,BufReadPost *.mql setlocal filetype=mongoql
 
-autocmd FileType mongoql :let b:vimpipe_command="mongo"
-autocmd FileType mongoql :let b:vimpipe_filetype="json"
+autocmd FileType mongoql let b:vimpipe_command="mongo"
+autocmd FileType mongoql let b:vimpipe_filetype="json"
 ```
 
 Then try editing a file called `somequery.mql` with something like this in:
