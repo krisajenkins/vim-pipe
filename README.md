@@ -91,9 +91,8 @@ autocmd FileType html let b:vimpipe_command="lynx -dump -stdin"
 
 ### JavaScript
 
-JavaScript usually gets run in a browser, so a text-based output doesn't apply.
-But vim-pipe can be usefully bound to JSLint, for code-quality checking
-on-the-fly.
+I usually run JavaScript in a browser, so I bind vim-pipe to JSLint, for
+code-quality checking on-the-fly.
 
 ```vim
 autocmd FileType javascript let b:vimpipe_command='jslint <(cat)'
