@@ -50,7 +50,7 @@ save-switch-execute-switch, which makes life faster and easier.
 ## Installation
 
 * Install [Pathogen][pathogen]. (You're already using Pathogen, right?)
-* Clone this project into `~/.vim/bundle/`.
+* Clone this project into `~/.vim/bundle/vim-pipe`.
 * Set a `b:vimpipe_command` variable for your buffer. The easiest way is to add
 an autocommand based on FileType. For example, in your `.vimrc` file:
 
