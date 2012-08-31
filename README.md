@@ -102,6 +102,18 @@ Note: JSLint doesn't accept input on STDIN, so this configuration uses bash's
 virtual file support. `<(cat)` takes the STDIN and re-presents it to look like a
 regular file.
 
+### JSON
+
+I find attaching vim-pipe to a pretty-printer useful for development:
+
+```vim
+" Vim doesn't set a FileType for JSON, so we'll do it manually:
+autocmd BufNewFile,BufReadPost *.json setlocal filetype=javascript.json
+
+" Requires that you have Python v2.6+ installed. (Most *nix systems do.)
+autocmd FileType json let let b:vimpipe_command="python -m json.tool"
+```
+
 ### Markdown
 
 Fast-preview the HTML:
