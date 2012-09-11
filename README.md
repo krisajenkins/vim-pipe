@@ -111,7 +111,7 @@ I find attaching vim-pipe to a pretty-printer useful for development:
 autocmd BufNewFile,BufReadPost *.json setlocal filetype=javascript.json
 
 " Requires that you have Python v2.6+ installed. (Most *nix systems do.)
-autocmd FileType json let let b:vimpipe_command="python -m json.tool"
+autocmd FileType json let b:vimpipe_command="python -m json.tool"
 ```
 
 ### Markdown
