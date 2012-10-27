@@ -52,12 +52,8 @@ function! VimPipe() " {
 	" Clear the buffer.
 	execute ":%d _"
 
-	" Lookup the vimpipe command, either from here or a parent.
-	if exists("b:vimpipe_command")
-		let l:vimpipe_command = b:vimpipe_command
-	else
-		let l:vimpipe_command = getbufvar( b:vimpipe_parent, 'vimpipe_command' )
-	endif
+	" Lookup the vimpipe command from the parent.
+	let l:vimpipe_command = getbufvar( b:vimpipe_parent, 'vimpipe_command' )
 
 	" Call the pipe command, or give a hint about setting it up.
 	if empty(l:vimpipe_command)
