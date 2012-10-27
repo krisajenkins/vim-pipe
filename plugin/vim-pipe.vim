@@ -1,6 +1,6 @@
-nnoremap <silent> <LocalLeader>r :call <SID>VimPipe()<CR>
+nnoremap <silent> <LocalLeader>r :call VimPipe()<CR>
 
-function! s:VimPipe() " {
+function! VimPipe() " {
 	" Save local settings.
 	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
