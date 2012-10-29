@@ -25,14 +25,17 @@ function! VimPipe() " {
 			execute "nnoremap \<buffer> \<silent> \<LocalLeader>p :bw " . vimpipe_buffer . "\<CR>"
 
 			" Split & open.
-			silent execute "sbuffer " . vimpipe_buffer
+			let split_command = "sbuffer " . vimpipe_buffer
+			if &splitright
+				let split_command = "vert " . split_command
+			endif
+			silent execute split_command
 
 			" Set some defaults.
 			call setbufvar(vimpipe_buffer, "&swapfile", 0)
 			call setbufvar(vimpipe_buffer, "&buftype", "nofile")
 			call setbufvar(vimpipe_buffer, "&bufhidden", "wipe")
 			call setbufvar(vimpipe_buffer, "vimpipe_parent", l:parent_buffer)
-
 			call setbufvar(vimpipe_buffer, "&filetype", getbufvar(l:parent_buffer, 'vimpipe_filetype'))
 
 			" Close-the-window mapping.
