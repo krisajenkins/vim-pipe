@@ -137,15 +137,15 @@ Is there an official FileType for MongoDB query files? Let's say it's `mongoql`,
 autocmd BufNewFile,BufReadPost *.mql setlocal filetype=mongoql
 
 autocmd FileType mongoql let b:vimpipe_command="mongo"
-autocmd FileType mongoql let b:vimpipe_filetype="json"
+autocmd FileType mongoql let b:vimpipe_filetype="javascript"
 ```
 
 Then try editing a file called `somequery.mql` with something like this in:
 
-```
+```javascript
 use books;
-db.book.find( null, {author: 1, title: 1 });
-db.runCommand( {dbStats: 1} );
+db.book.find(null, {author: 1, title: 1 });
+db.runCommand({dbStats: 1});
 ```
 
 ## Help
