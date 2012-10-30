@@ -152,6 +152,22 @@ db.runCommand({dbStats: 1});
 
 See `:help vim-pipe` for more.
 
+## FAQ
+
+### What's the difference between this and `:make`?
+
+The biggest difference is the way the output is presented & read. If the whole of the
+output is interesting, use Vim Pipe. If the only interesting part of the output
+is a list of errors/warnings, use `:make`.
+
+### Does Vim Pipe fork/exec?
+
+_..or is there a long-lived background process?_
+
+It forks. So it works well with commands you'd invoke frequently from the
+command line, but not so well with something like `javac`, which has a (deathly)
+slow startup time.
+
 ## Credits
 
 Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learnvim], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
