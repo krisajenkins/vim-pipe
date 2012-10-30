@@ -116,8 +116,8 @@ I find attaching vim-pipe to a pretty-printer useful for development:
 " In ~/.vimrc
 autocmd BufNewFile,BufReadPost *.json setlocal filetype=javascript.json
 
-" Requires that you have Python v2.6+ installed. (Most *nix systems do.)
 " In ~/.vim/ftplugin/javascript.vim
+" Requires that you have Python v2.6+ installed. (Most *nix systems do.)
 let b:vimpipe_command="python -m json.tool"
 ```
 
@@ -169,7 +169,7 @@ See `:help vim-pipe` for more.
 
 The biggest difference is the way the output is presented & read. If the whole of the
 output is interesting, use Vim Pipe. If the only interesting part of the output
-is a list of errors/warnings, use `:make`.
+is a summary of errors/warnings, use `:make`.
 
 ### Does Vim Pipe fork/exec?
 
