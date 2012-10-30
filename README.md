@@ -52,11 +52,12 @@ save-switch-execute-switch, which makes life faster and easier.
 * Install [Pathogen][pathogen]. (You're already using Pathogen, right?)
 * Clone this project into `~/.vim/bundle/vim-pipe`.
 * Set a `b:vimpipe_command` variable for your buffer. The easiest way is to add
-an autocommand based on FileType. For example, in your `.vimrc` file:
+a `let` command in `~/.vim/ftplugin/<filetype>.vim`.
 
 ```vim
-autocmd FileType sql      let b:vimpipe_command="psql mydatabase"
-autocmd FileType markdown let b:vimpipe_command="multimarkdown"
+" In ~/.vim/ftplugin/sql.vim
+let b:vimpipe_command="psql mydatabase"
+let b:vimpipe_command="multimarkdown"
 ```
 
 See below for various examples.
@@ -69,7 +70,8 @@ buffer, not the contents on disk.
 
 ### PostgreSQL
 ```vim
-autocmd FileType sql let b:vimpipe_command="psql mydatabase"
+" In ~/.vim/ftplugin/sql.vim
+let b:vimpipe_command="psql mydatabase"
 ```
 
 See also [vim-postgresql-syntax][vim-postgresql-syntax].
@@ -78,7 +80,8 @@ See also [vim-postgresql-syntax][vim-postgresql-syntax].
 
 If you have an OPS$ login, it's as simple as:
 ```vim
-autocmd FileType sql let b:vimpipe_command="sqlplus -s /"
+" In ~/.vim/ftplugin/sql.vim
+let b:vimpipe_command="sqlplus -s /"
 ```
 
 ### HTML
@@ -86,7 +89,8 @@ autocmd FileType sql let b:vimpipe_command="sqlplus -s /"
 This is only text-based, obviously, but can still speed up initial development.
 
 ```vim
-autocmd FileType html let b:vimpipe_command="lynx -dump -stdin"
+" In ~/.vim/ftplugin/html.vim
+let b:vimpipe_command="lynx -dump -stdin"
 ```
 
 ### JavaScript
@@ -95,7 +99,8 @@ I usually run JavaScript in a browser, so I bind vim-pipe to JSLint, for
 code-quality checking on-the-fly.
 
 ```vim
-autocmd FileType javascript let b:vimpipe_command='jslint <(cat)'
+" In ~/.vim/ftplugin/javascript.vim
+let b:vimpipe_command='jslint <(cat)'
 ```
 
 Note: JSLint doesn't accept input on STDIN, so this configuration uses bash's
@@ -108,10 +113,12 @@ I find attaching vim-pipe to a pretty-printer useful for development:
 
 ```vim
 " Vim doesn't set a FileType for JSON, so we'll do it manually:
+" In ~/.vimrc
 autocmd BufNewFile,BufReadPost *.json setlocal filetype=javascript.json
 
 " Requires that you have Python v2.6+ installed. (Most *nix systems do.)
-autocmd FileType json let b:vimpipe_command="python -m json.tool"
+" In ~/.vim/ftplugin/javascript.vim
+let b:vimpipe_command="python -m json.tool"
 ```
 
 ### Markdown
@@ -119,14 +126,16 @@ autocmd FileType json let b:vimpipe_command="python -m json.tool"
 Fast-preview the HTML:
 
 ```vim
-autocmd FileType mkd let b:vimpipe_command="multimarkdown"
-autocmd FileType mkd let b:vimpipe_filetype="html"
+" In ~/.vim/ftplugin/markdown.vim
+let b:vimpipe_command="multimarkdown"
+let b:vimpipe_filetype="html"
 ```
 
 Or combine wth the HTML tip to preview the rendered result:
 
 ```vim
-autocmd FileType mkd let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
+" In ~/.vim/ftplugin/markdown.vim
+let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
 ```
 
 ### MongoDB
@@ -134,10 +143,12 @@ autocmd FileType mkd let b:vimpipe_command="multimarkdown | lynx -dump -stdin"
 Is there an official FileType for MongoDB query files? Let's say it's `mongoql`, for all files `*.mql`:
 
 ```vim
+" In ~/.vimrc
 autocmd BufNewFile,BufReadPost *.mql setlocal filetype=mongoql
 
-autocmd FileType mongoql let b:vimpipe_command="mongo"
-autocmd FileType mongoql let b:vimpipe_filetype="javascript"
+" In ~/.vim/ftplugin/mql.vim
+let b:vimpipe_command="mongo"
+let b:vimpipe_filetype="javascript"
 ```
 
 Then try editing a file called `somequery.mql` with something like this in:
