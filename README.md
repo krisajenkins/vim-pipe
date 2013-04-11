@@ -52,11 +52,12 @@ save-switch-execute-switch, which makes life faster and easier.
 * Install [Pathogen][pathogen]. (You're already using Pathogen, right?)
 * Clone this project into `~/.vim/bundle/vim-pipe`.
 * Set a `b:vimpipe_command` variable for your buffer. The easiest way is to add
-a `let` command in `~/.vim/ftplugin/<filetype>.vim`.
+a `let` command in `~/.vim/ftplugin/<filetype>.vim`. For example:
 
 ```vim
 " In ~/.vim/ftplugin/sql.vim
 let b:vimpipe_command="psql mydatabase"
+" In ~/.vim/ftplugin/markdown.vim
 let b:vimpipe_command="multimarkdown"
 ```
 
