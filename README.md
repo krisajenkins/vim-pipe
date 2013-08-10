@@ -188,3 +188,7 @@ Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the 
 [learnvim]: http://learnvimscriptthehardway.stevelosh.com/
 [vimclojure]: https://github.com/kotarak/vimclojure
 [vim-postgresql-syntax]: https://github.com/krisajenkins/vim-postgresql-syntax
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/krisajenkins/vim-pipe/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
