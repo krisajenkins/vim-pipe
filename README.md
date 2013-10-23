@@ -69,6 +69,9 @@ Once `b:vimpipe_command` is configured, type `<LocalLeader>r` to get the list
 results.  There's no need to save the file first. It works on the current
 buffer, not the contents on disk.
 
+You can set `g:vimpipe_silent=1` to disable runtime information in the output
+window.
+
 ### PostgreSQL
 ```vim
 " In ~/.vim/ftplugin/sql.vim
