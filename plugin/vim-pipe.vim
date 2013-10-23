@@ -6,6 +6,12 @@ function! VimPipe() " {
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
+	if exists("g:vimpipe_silent")
+		let l:vimpipe_silent = g:vimpipe_silent
+	else
+		let l:vimpipe_silent = 0
+	endif
+
 	" Lookup the parent buffer.
 	if exists("b:vimpipe_parent")
 		let l:parent_buffer = b:vimpipe_parent
@@ -47,9 +53,12 @@ function! VimPipe() " {
 		let l:parent_was_active = 1
 	endif
 
-	" Display a "Running" message.
-	silent! execute ":1,2d _"
-	silent call append(0, ["# Running... ",""])
+	if ! l:vimpipe_silent == 1
+		" Display a "Running" message.
+		silent! execute ":1,2d _"
+		silent call append(0, ["# Running... ",""])
+	endif
+
 	redraw
 
 	" Clear the buffer.
@@ -67,13 +76,18 @@ function! VimPipe() " {
 
 		let l:start = reltime()
 		silent execute ":%!" . l:vimpipe_command
+
 		let l:duration = reltimestr(reltime(start))
-		silent call append(0, ["# Pipe command took:" . duration . "s", ""])
+		if ! l:vimpipe_silent == 1
+			silent call append(0, ["# Pipe command took:" . duration . "s", ""])
+		endif
 	endif
 
-	" Add the how-to-close shortcut.
-	let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
-	silent call append(0, "# Use " . leader . "p to close this buffer.")
+	if ! l:vimpipe_silent == 1
+		" Add the how-to-close shortcut.
+		let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
+		silent call append(0, "# Use " . leader . "p to close this buffer.")
+	endif
 
 	" Go back to the last window.
 	if exists("l:parent_was_active")

@@ -41,6 +41,10 @@ b:vimpipe_filetype      The filetype of the output buffer. Useful for
                         syntax highlighting of the result, or running
                         arbitrary autocommands against it.
 
+g:vimpipe_silent        Set to 1 to suppress all additional output (runtime information).
+                        Useful if you want to reuse the output buffer without
+                        having to clean up.
+
 COMMANDS                                        *vim-pipe-commands*
 
 <LocalLeader>r          Send the contents of the current buffer to the
