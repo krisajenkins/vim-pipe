@@ -6,8 +6,8 @@ function! VimPipe() " {
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
-	if exists("b:vimpipe_silent")
-		let l:vimpipe_silent = b:vimpipe_silent
+	if exists("g:vimpipe_silent")
+		let l:vimpipe_silent = g:vimpipe_silent
 	else
 		let l:vimpipe_silent = 0
 	endif
