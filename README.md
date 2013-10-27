@@ -187,10 +187,13 @@ slow startup time.
 
 Thanks to Steve Losh for his excellent guide to Vimscript, [Learn Vimscript the Hard Way][learnvim], and Meikel Brandmeye of [vimclojure][vimclojure] for the inspiration.
 
+Thanks to [Markus Seeger][codegourmet] for contributing vimpipe_silent.
+
 [pathogen]: https://github.com/tpope/vim-pathogen/
 [learnvim]: http://learnvimscriptthehardway.stevelosh.com/
 [vimclojure]: https://github.com/kotarak/vimclojure
 [vim-postgresql-syntax]: https://github.com/krisajenkins/vim-postgresql-syntax
+[codegourmet]: https://github.com/codegourmet
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/krisajenkins/vim-pipe/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
