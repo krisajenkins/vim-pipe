@@ -6,12 +6,6 @@ function! VimPipe() " {
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
 
-	if exists("g:vimpipe_silent")
-		let l:vimpipe_silent = g:vimpipe_silent
-	else
-		let l:vimpipe_silent = 0
-	endif
-
 	" Lookup the parent buffer.
 	if exists("b:vimpipe_parent")
 		let l:parent_buffer = b:vimpipe_parent
@@ -51,6 +45,14 @@ function! VimPipe() " {
 		endif
 
 		let l:parent_was_active = 1
+	endif
+
+	" Check the global vimpipe_silent setting, and make a local copy whose
+	" existence we can rely on.
+	if exists("g:vimpipe_silent")
+		let l:vimpipe_silent = g:vimpipe_silent
+	else
+		let l:vimpipe_silent = 0
 	endif
 
 	if l:vimpipe_silent != 1
