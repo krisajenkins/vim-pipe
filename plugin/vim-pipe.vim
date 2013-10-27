@@ -53,7 +53,7 @@ function! VimPipe() " {
 		let l:parent_was_active = 1
 	endif
 
-	if ! l:vimpipe_silent == 1
+	if l:vimpipe_silent != 1
 		" Display a "Running" message.
 		silent! execute ":1,2d _"
 		silent call append(0, ["# Running... ",""])
@@ -78,12 +78,12 @@ function! VimPipe() " {
 		silent execute ":%!" . l:vimpipe_command
 
 		let l:duration = reltimestr(reltime(start))
-		if ! l:vimpipe_silent == 1
+		if l:vimpipe_silent != 1
 			silent call append(0, ["# Pipe command took:" . duration . "s", ""])
 		endif
 	endif
 
-	if ! l:vimpipe_silent == 1
+	if l:vimpipe_silent != 1
 		" Add the how-to-close shortcut.
 		let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
 		silent call append(0, "# Use " . leader . "p to close this buffer.")
