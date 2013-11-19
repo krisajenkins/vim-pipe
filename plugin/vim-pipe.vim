@@ -37,7 +37,7 @@ function! VimPipe() "{{{1
 	" Save local settings.
 	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
-	let &switchbuf = useopen
+	let &switchbuf = 'useopen'
 
 	" Lookup the parent buffer.
 	if exists("b:vimpipe_parent")
