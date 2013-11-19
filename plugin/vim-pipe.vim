@@ -1,34 +1,63 @@
-nnoremap <silent> <LocalLeader>r :call VimPipe()<CR>
+" =============================================================================
+" File:          plugin/vim-pipe.vim
+" Description:   VIM plugin to send a buffer through a command and instantly
+"                see the output.
+" Author:        Kris Jenkins <http://blog.jenkster.com/>
+" License:       MIT (http://www.opensource.org/licenses/MIT)
+" Website:       http://github.com/krisajenkins/vim-pipe
+" Version:       1.0
+" Copyright Notice:
+"                Permission is hereby granted to use and distribute this code,
+"                with or without modifications, provided that this copyright
+"                notice is copied with it. Like anything else that's free,
+"                table-mode.vim is provided *as is* and comes with no warranty
+"                of any kind, either expressed or implied. In no event will
+"                the copyright holder be liable for any damamges resulting
+"                from the use of this software.
+" =============================================================================
 
-function! VimPipe() " {
+" Finish if already loaded {{{1
+if exists('g:loaded_vim_pipe')
+	finish
+endif
+let g:loaded_vim_pipe = 1
+
+function! s:SetGlobalOptDefault(opt, val) "{{{1
+  if !exists('g:' . a:opt)
+    let g:{a:opt} = a:val
+  endif
+endfunction
+
+" Set Global Defaults {{{1
+call s:SetGlobalOptDefault('vimpipe_invoke_map', '<LocalLeader>r')
+call s:SetGlobalOptDefault('vimpipe_close_map', '<LocalLeader>p')
+call s:SetGlobalOptDefault('vimpipe_silent', 0)
+
+function! VimPipe() "{{{1
 	" Save local settings.
 	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
-	set switchbuf=useopen
+	let &switchbuf = useopen
 
 	" Lookup the parent buffer.
 	if exists("b:vimpipe_parent")
 		let l:parent_buffer = b:vimpipe_parent
 	else
 		let l:parent_buffer = bufnr( "%" )
-	endif
 
-	" Create a new output buffer, if necessary.
-	if ! exists("b:vimpipe_parent")
+		" Create a new output buffer, if necessary.
 		let bufname = bufname( "%" ) . " [VimPipe]"
 		let vimpipe_buffer = bufnr( bufname )
 
 		if vimpipe_buffer == -1
 			let vimpipe_buffer = bufnr( bufname, 1 )
 
-			" Close-the-window mapping.
-			execute "nnoremap \<buffer> \<silent> \<LocalLeader>p :bw " . vimpipe_buffer . "\<CR>"
+			" Close-the-window mapping within vimpipe target window
+			execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :<C-U>bw " . vimpipe_buffer . "<CR>"
 
 			" Split & open.
 			let split_command = "sbuffer " . vimpipe_buffer
-			if &splitright
-				let split_command = "vert " . split_command
-			endif
+			if &splitright | let split_command = "vert " . split_command | endif
 			silent execute split_command
 
 			" Set some defaults.
@@ -38,8 +67,8 @@ function! VimPipe() " {
 			call setbufvar(vimpipe_buffer, "vimpipe_parent", l:parent_buffer)
 			call setbufvar(vimpipe_buffer, "&filetype", getbufvar(l:parent_buffer, 'vimpipe_filetype'))
 
-			" Close-the-window mapping.
-			nnoremap <buffer> <silent> <LocalLeader>p :bw<CR>
+			" Close-the-window mapping within vimpipe window.
+			execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :bw<CR>"
 		else
 			silent execute "sbuffer" vimpipe_buffer
 		endif
@@ -47,15 +76,7 @@ function! VimPipe() " {
 		let l:parent_was_active = 1
 	endif
 
-	" Check the global vimpipe_silent setting, and make a local copy whose
-	" existence we can rely on.
-	if exists("g:vimpipe_silent")
-		let l:vimpipe_silent = g:vimpipe_silent
-	else
-		let l:vimpipe_silent = 0
-	endif
-
-	if l:vimpipe_silent != 1
+	if g:vimpipe_silent != 1
 		" Display a "Running" message.
 		silent! execute ":1,2d _"
 		silent call append(0, ["# Running... ",""])
@@ -80,15 +101,14 @@ function! VimPipe() " {
 		silent execute ":%!" . l:vimpipe_command
 
 		let l:duration = reltimestr(reltime(start))
-		if l:vimpipe_silent != 1
+		if g:vimpipe_silent != 1
 			silent call append(0, ["# Pipe command took:" . duration . "s", ""])
 		endif
 	endif
 
-	if l:vimpipe_silent != 1
+	if g:vimpipe_silent != 1
 		" Add the how-to-close shortcut.
-		let leader = exists("g:maplocalleader") ? g:maplocalleader : "\\"
-		silent call append(0, "# Use " . leader . "p to close this buffer.")
+		silent call append(0, "# Use " . g:vimpipe_close_map . " to close this buffer.")
 	endif
 
 	" Go back to the last window.
@@ -99,6 +119,10 @@ function! VimPipe() " {
 	" Restore local settings.
 	let &switchbuf = switchbuf_before
 	let @@ = saved_unnamed_register
-endfunction " }
+endfunction
 
-" vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
+" Define Mappings {{{1
+execute "nnoremap <silent> " . g:vimpipe_invoke_map . " :call VimPipe()<CR>"
+
+" Modeline {{{1
+" vim: set foldlevel=1 foldmethod=marker:
