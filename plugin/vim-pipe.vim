@@ -36,13 +36,13 @@ call s:SetGlobalOptDefault('vimpipe_silent', 0)
 " Default configuration for Files {{{1
 let s:filetype_configs = {
       \ 'ruby': {
-      \   'command': 'ruby',
+      \   'command': 'ruby'
       \ },
       \ 'javascript': {
       \   'command': 'mocha <(cat)'
       \ },
       \ 'sql': {
-      \   'command': 'psql mydatabase',
+      \   'command': 'psql mydatabase'
       \ },
       \ 'html': {
       \   'command': 'lynx -dump -stdin'
@@ -52,7 +52,7 @@ let s:filetype_configs = {
       \ },
       \ 'mongoql': {
       \   'command': 'mongo',
-      \   'filetype': 'javascript',
+      \   'filetype': 'javascript'
       \ }}
 
 for [ftype, config] in items(s:filetype_configs)
@@ -71,8 +71,10 @@ function! VimPipe() "{{{1
   " Lookup the parent buffer.
   if exists("b:vimpipe_parent")
     let l:parent_buffer = b:vimpipe_parent
+    let l:parent_buffer_ft = getbufvar( b:vimpipe_parent, '&filetype' )
   else
     let l:parent_buffer = bufnr( "%" )
+    let l:parent_buffer_ft = getbufvar( l:parent_buffer, '&filetype' )
 
     " Create a new output buffer, if necessary.
     let bufname = bufname( "%" ) . " [VimPipe]"
@@ -90,11 +92,16 @@ function! VimPipe() "{{{1
       silent execute split_command
 
       " Set some defaults.
+      let l:vimpipe_filetype = getbufvar(l:parent_buffer, 'vimpipe_filetype')
+      " Loogup the vimpipe filetype from the global variable
+      if empty(l:vimpipe_filetype) && exists('g:vimpipe_{l:parent_buffer_ft}_filetype')
+        let l:vimpipe_filetype = g:vimpipe_{l:parent_buffer_ft}_filetype
+      endif
       call setbufvar(vimpipe_buffer, "&swapfile", 0)
       call setbufvar(vimpipe_buffer, "&buftype", "nofile")
       call setbufvar(vimpipe_buffer, "&bufhidden", "wipe")
       call setbufvar(vimpipe_buffer, "vimpipe_parent", l:parent_buffer)
-      call setbufvar(vimpipe_buffer, "&filetype", getbufvar(l:parent_buffer, 'vimpipe_filetype'))
+      call setbufvar(vimpipe_buffer, "&filetype", l:vimpipe_filetype)
 
       " Close-the-window mapping within vimpipe window.
       execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :bw<CR>"
@@ -118,11 +125,9 @@ function! VimPipe() "{{{1
 
   " Lookup the vimpipe command from the parent.
   let l:vimpipe_command = getbufvar( b:vimpipe_parent, 'vimpipe_command' )
-
-  " Lookup the vinpipe command from the global variable.
-  let l:vimpipe_parent_ft = getbufvar( b:vimpipe_parent, '&filetype' )
-  if empty(l:vimpipe_command) && exists('g:vimpipe_{l:vimpipe_parent_ft}_command')
-    let l:vimpipe_command = g:vimpipe_{l:vimpipe_parent_ft}_command
+  " Lookup the vimpipe command from the global variable.
+  if empty(l:vimpipe_command) && exists('g:vimpipe_{l:parent_buffer_ft}_command')
+    let l:vimpipe_command = g:vimpipe_{l:parent_buffer_ft}_command
   endif
 
   " Call the pipe command, or give a hint about setting it up.
