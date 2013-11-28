@@ -56,8 +56,10 @@ let s:filetype_configs = {
       \ }}
 
 for [ftype, config] in items(s:filetype_configs)
-  let g:vimpipe_{ftype}_command = config['command']
-  if get(config, 'filetype', 0)
+  if !exists('g:vimpipe_{ftype}_command')
+    let g:vimpipe_{ftype}_command = config['command']
+  endif
+  if get(config, 'filetype', 0) && !exists('g:vimpipe_{ftype}_filetype')
     let g:vimpipe_{ftype}_filetype = config['filetype']
   endif
 endfor
