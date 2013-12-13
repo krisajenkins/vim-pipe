@@ -1,6 +1,6 @@
 nnoremap <silent> <LocalLeader>r :call VimPipe()<CR>
 
-function! VimPipe() " {
+function! VimPipe() "{{{1
 	" Save local settings.
 	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
@@ -99,6 +99,7 @@ function! VimPipe() " {
 	" Restore local settings.
 	let &switchbuf = switchbuf_before
 	let @@ = saved_unnamed_register
-endfunction " }
+endfunction
 
-" vim: set foldmarker={,} foldlevel=1 foldmethod=marker:
+" Modeline {{{1
+" vim: set foldlevel=1 foldmethod=marker:
