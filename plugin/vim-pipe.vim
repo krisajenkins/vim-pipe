@@ -1,5 +1,11 @@
 nnoremap <silent> <LocalLeader>r :call VimPipe()<CR>
 
+" Finish if already loaded {{{1
+if exists('g:loaded_vimpipe')
+	finish
+endif
+let g:loaded_vimpipe = 1
+
 function! VimPipe() "{{{1
 	" Save local settings.
 	let saved_unnamed_register = @@
