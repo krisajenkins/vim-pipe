@@ -45,6 +45,10 @@ g:vimpipe_silent        Set to 1 to suppress all additional output (runtime info
                         Useful if you want to reuse the output buffer without
                         having to clean up.
 
+g:vimpipe_invoke_map    The keystroke that invokes vim-pipe. Default: <LocalLeader>r
+
+g:vimpipe_close_map     The keystroke that closes the vim-pipe window. Default: <LocalLeader>p
+
 COMMANDS                                        *vim-pipe-commands*
 
 <LocalLeader>r          Send the contents of the current buffer to the
