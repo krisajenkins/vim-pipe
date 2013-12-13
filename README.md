@@ -194,7 +194,3 @@ Thanks to [Markus Seeger][codegourmet] for contributing vimpipe_silent.
 [vimclojure]: https://github.com/kotarak/vimclojure
 [vim-postgresql-syntax]: https://github.com/krisajenkins/vim-postgresql-syntax
 [codegourmet]: https://github.com/codegourmet
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/krisajenkins/vim-pipe/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
