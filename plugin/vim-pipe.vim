@@ -37,7 +37,7 @@ function! VimPipe() "{{{1
 			let vimpipe_buffer = bufnr( bufname, 1 )
 
 			" Close-the-window mapping within vimpipe target window
-			execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :bw " . vimpipe_buffer . "<CR>"
+			execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :<C-U>bw " . vimpipe_buffer . "<CR>"
 
 			" Split & open.
 			let split_command = "sbuffer " . vimpipe_buffer
@@ -54,7 +54,7 @@ function! VimPipe() "{{{1
 			call setbufvar(vimpipe_buffer, "&filetype", getbufvar(l:parent_buffer, 'vimpipe_filetype'))
 
 			" Close-the-window mapping within vimpipe window.
-			execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :bw<CR>"
+			execute "nnoremap <buffer> <silent> " . g:vimpipe_close_map . " :<C-U>bw<CR>"
 		else
 			silent execute "sbuffer" vimpipe_buffer
 		endif
