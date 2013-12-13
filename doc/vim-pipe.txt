@@ -52,7 +52,7 @@ g:vimpipe_close_map     The keystroke that closes the vim-pipe window. Default: 
 COMMANDS                                        *vim-pipe-commands*
 
 <LocalLeader>r          Send the contents of the current buffer to the
-                       |vim-pipe-b:pipe_command|and display the results.
+                        |vim-pipe-b:pipe_command|and display the results.
                         The buffer does not need to be saved first.
 
 <LocalLeader>p          Close the result buffer. May be called from your
