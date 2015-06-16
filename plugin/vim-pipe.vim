@@ -15,7 +15,7 @@ call s:SetGlobalOptDefault('vimpipe_invoke_map', '<LocalLeader>r')
 call s:SetGlobalOptDefault('vimpipe_close_map', '<LocalLeader>p')
 call s:SetGlobalOptDefault('vimpipe_silent', 0)
 
-function! VimPipe() "{{{1
+function! VimPipe() range "{{{1
 	" Save local settings.
 	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
@@ -80,7 +80,7 @@ function! VimPipe() "{{{1
 	if empty(l:vimpipe_command)
 		silent call append(0, ["", "# See :help vim-pipe for setup advice."])
 	else
-		let l:parent_contents = getbufline(l:parent_buffer, 0, "$")
+		let l:parent_contents = getbufline(l:parent_buffer, a:firstline, a:lastline)
 		call append(line('0'), l:parent_contents)
 
 		let l:start = reltime()
@@ -108,6 +108,6 @@ function! VimPipe() "{{{1
 endfunction
 
 " Define Mappings {{{1
-execute "nnoremap <silent> " . g:vimpipe_invoke_map . " :call VimPipe()<CR>"
+execute "nnoremap <silent> " . g:vimpipe_invoke_map . " :%call VimPipe()<CR>"
 " Modeline {{{1
 " vim: set foldlevel=1 foldmethod=marker:
