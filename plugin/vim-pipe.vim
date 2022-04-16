@@ -62,6 +62,8 @@ function! VimPipe() range "{{{1
 		let l:parent_was_active = 1
 	endif
 
+	setlocal modifiable
+
 	if g:vimpipe_silent != 1
 		" Display a "Running" message.
 		silent! execute ":1,2d _"
@@ -96,6 +98,8 @@ function! VimPipe() range "{{{1
 		" Add the how-to-close shortcut.
 		silent call append(0, "# Use " . g:vimpipe_close_map . " to close this buffer.")
 	endif
+
+	setlocal nomodifiable
 
 	" Go back to the last window.
 	if exists("l:parent_was_active")
