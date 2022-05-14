@@ -17,6 +17,7 @@ call s:SetGlobalOptDefault('vimpipe_silent', 0)
 
 function! VimPipe() range "{{{1
 	" Save local settings.
+	let l:winview = winsaveview()
 	let saved_unnamed_register = @@
 	let switchbuf_before = &switchbuf
 	set switchbuf=useopen
@@ -105,6 +106,7 @@ function! VimPipe() range "{{{1
 	" Restore local settings.
 	let &switchbuf = switchbuf_before
 	let @@ = saved_unnamed_register
+	call winrestview(l:winview)
 endfunction
 
 " Define Mappings {{{1
